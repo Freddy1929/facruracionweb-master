@@ -1,30 +1,30 @@
 <section class="editar-contenedor">
   <h2>Actualizar Producto</h2>
 
-  <form class="formulario-producto">
+  <form [formGroup]="productoForm" (ngSubmit)="guardar()" class="formulario-producto">
     <div class="campo">
-      <input type="text" placeholder="Código" />
+      <input type="text" formControlName="codigo" placeholder="Código" />
     </div>
 
     <div class="campo">
-      <input type="text" placeholder="Nombre" />
+      <input type="text" formControlName="nombre" placeholder="Nombre" />
     </div>
 
     <div class="campo">
-      <input type="text" placeholder="Descripción" />
+      <input type="text" formControlName="descripcion" placeholder="Descripción" />
     </div>
 
     <div class="campo">
-      <input type="text" placeholder="Precio Unitario" />
+      <input type="number" formControlName="precioUnitario" placeholder="Precio Unitario" />
     </div>
 
     <div class="campo">
-      <input type="text" placeholder="Cantidad" />
+      <input type="number" formControlName="cantidad" placeholder="Cantidad" />
     </div>
 
     <div class="acciones-form">
-      <button matButton="filled" type="button" class="btn-aceptar">Aceptar</button>
-      <a matButton="filled" class="btn-cancelar" routerLink="/listarProductos">Cancelar</a>
+      <button type="submit" class="btn-aceptar" [disabled]="productoForm.invalid">Aceptar</button>
+      <a class="btn-cancelar" routerLink="/listarProductos">Cancelar</a>
     </div>
   </form>
 </section>

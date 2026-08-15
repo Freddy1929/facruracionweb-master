@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Service } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 
 export interface Producto {
@@ -17,7 +17,9 @@ interface RespuestaProductos {
   value: Producto[];
 }
 
-@Service()
+@Injectable({
+  providedIn: 'root'
+})
 export class ProductosService {
   private http = inject(HttpClient);
   private urlbase = 'http://facturacion-api.runasp.net/api/Productos';
@@ -30,5 +32,9 @@ export class ProductosService {
 
   eliminarProducto(productoId: number): Observable<void> {
     return this.http.delete<void>(`${this.urlbase}/${productoId}`);
+  }
+
+  actualizarProducto(productoId: number, producto: Producto): Observable<void> {
+    return this.http.put<void>(`${this.urlbase}/${productoId}`, producto);
   }
 }

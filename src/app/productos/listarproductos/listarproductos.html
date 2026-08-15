@@ -4,7 +4,6 @@
 
   <div class="tabla-contenedor">
     <table mat-table [dataSource]="dataSource">
-      <!-- ... tus otras columnas se mantienen igual ... -->
       <ng-container matColumnDef="activo">
         <th mat-header-cell *matHeaderCellDef>Activo</th>
         <td mat-cell *matCellDef="let element">{{ element.activo }}</td>
@@ -45,12 +44,10 @@
         <td mat-cell *matCellDef="let element">{{ element.productoId }}</td>
       </ng-container>
 
-      
       <ng-container matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
         <td mat-cell *matCellDef="let element" class="acciones">
-          
-          <a matButton="filled" class="editar" [routerLink]="['/editarProductos', element.productoId]">Editar</a>
+          <button matButton="filled" type="button" class="editar" [routerLink]="['/editarProductos', element.productoId]">Editar</button>
           <button matButton="filled" type="button" class="eliminar" (click)="eliminarProducto(element)">Eliminar</button>
         </td>
       </ng-container>

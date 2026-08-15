@@ -1,0 +1,34 @@
+<section class="formulario-contenedor">
+  <h2>Editar Cliente</h2>
+
+  <form [formGroup]="clienteForm" (ngSubmit)="guardar()" class="formulario-cliente">
+    <div class="campo">
+      <input type="text" formControlName="nombre" placeholder="Nombre" />
+    </div>
+
+    <div class="campo">
+      <input type="text" formControlName="apellido" placeholder="Apellido" />
+    </div>
+
+    <div class="campo">
+      <input type="text" formControlName="cedulaRuc" placeholder="Cédula / RUC" />
+    </div>
+
+    <div class="campo">
+      <input type="email" formControlName="correo" placeholder="Correo Electrónico" />
+    </div>
+
+    <div class="campo">
+      <input type="text" formControlName="telefono" placeholder="Teléfono" />
+    </div>
+
+    <div class="campo">
+      <input type="text" formControlName="direccion" placeholder="Dirección" />
+    </div>
+
+    <div class="acciones-form">
+      <button type="submit" class="btn-aceptar" [disabled]="clienteForm.invalid">Guardar</button>
+      <a class="btn-cancelar" routerLink="/listarClientes">Cancelar</a>
+    </div>
+  </form>
+</section>

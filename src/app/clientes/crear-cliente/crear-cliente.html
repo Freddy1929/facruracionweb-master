@@ -1,0 +1,38 @@
+<section class="formulario-contenedor">
+  <h2>Crear Cliente</h2>
+
+  <form [formGroup]="clienteForm" class="formulario-cliente">
+    <div class="campo">
+      <input type="text" formControlName="nombre" placeholder="Nombre" />
+    </div>
+
+    <div class="campo">
+      <input type="text" formControlName="apellido" placeholder="Apellido" />
+    </div>
+
+    <div class="campo">
+      <input type="text" formControlName="cedulaRuc" placeholder="Cédula / RUC" />
+    </div>
+
+    <div class="campo">
+      <input type="email" formControlName="correo" placeholder="Correo Electrónico" />
+    </div>
+
+    <div class="campo">
+      <input type="text" formControlName="telefono" placeholder="Teléfono" />
+    </div>
+
+    <div class="campo">
+      <input type="text" formControlName="direccion" placeholder="Dirección" />
+    </div>
+
+    <div class="acciones-form">
+      <button (click)="guardar()" mat-flat-button color="primary" class="btn-pill" [disabled]="clienteForm.invalid">
+        Guardar
+      </button>
+      <a mat-stroked-button routerLink="/listarClientes" class="btn-pill">
+        Cancelar
+      </a>
+    </div>
+  </form>
+</section>

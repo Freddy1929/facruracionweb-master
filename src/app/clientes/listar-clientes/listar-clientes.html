@@ -1,0 +1,54 @@
+<section class="contenedor">
+  <h2>Listado de Clientes</h2>
+
+  <div class="acciones-superiores">
+    <a mat-flat-button color="primary" routerLink="/crearCliente" class="btn-pill">
+      Crear Cliente
+    </a>
+  </div>
+
+  <table class="tabla-custom">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Cédula / RUC</th>
+        <th>Correo</th>
+        <th>Teléfono</th>
+        <th>Dirección</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let c of this.clientes()">
+          <td>{{ c.clienteId }}</td>
+          <td>{{ c.nombres }}</td>
+          <td>{{ c.apellidos }}</td>
+          <td>{{ c.cedula }}</td>
+          <td>{{ c.email }}</td>
+          <td>{{ c.telefono }}</td>
+          <td>{{ c.direccion }}</td>
+          <td class="acciones">
+            <a
+              mat-flat-button
+              color="primary"
+              routerLink="/editarCliente/{{ c.clienteId }}"
+              class="btn-pill btn-accion"
+            >
+              Editar
+            </a>
+            <button
+              mat-flat-button
+              color="warn"
+              (click)="eliminar(c.clienteId || c.clienteId)"
+              class="btn-pill btn-accion"
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      
+    </tbody>
+  </table>
+</section>

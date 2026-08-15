@@ -1,0 +1,43 @@
+.productos { padding: 38px 28px; }
+
+h1 { margin: 0 0 10px; color: #111827; text-align: center; font-size: 1.35rem; font-weight: 800; }
+
+.crear-producto {
+  min-height: 42px;
+  margin: 0 0 12px;
+  padding: 0 20px;
+  border-radius: 22px;
+  font-size: 0.9rem;
+  --mat-button-filled-container-color: #2563c7;
+  --mat-button-filled-label-text-color: #fff;
+}
+
+.tabla-contenedor { overflow-x: auto; }
+
+table { width: 100%; min-width: 1080px; background: transparent; }
+
+th.mat-mdc-header-cell { height: 34px; color: #111827; font-size: 0.7rem; font-weight: 500; }
+
+td.mat-mdc-cell { height: 30px; color: #1f2937; font-size: 0.72rem; }
+
+td.mat-mdc-cell, th.mat-mdc-header-cell { padding: 0 9px; white-space: nowrap; }
+
+.acciones {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  white-space: nowrap;
+}
+
+.editar, .eliminar {
+  min-width: auto;
+  min-height: 32px;
+  padding: 0 16px;
+  border-radius: 18px;
+  font-size: 0.76rem;
+  line-height: 32px;
+}
+.editar { margin-right: 7px; }
+.editar { --mat-button-filled-container-color: #2563c7; --mat-button-filled-label-text-color: #fff; }
+.eliminar { --mat-button-filled-container-color: #f12712; --mat-button-filled-label-text-color: #fff; }
+
+@media (max-width: 600px) { .productos { padding: 24px 16px; } }

@@ -21,34 +21,33 @@
       </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let c of this.clientes()">
-          <td>{{ c.clienteId }}</td>
-          <td>{{ c.nombres }}</td>
-          <td>{{ c.apellidos }}</td>
-          <td>{{ c.cedula }}</td>
-          <td>{{ c.email }}</td>
-          <td>{{ c.telefono }}</td>
-          <td>{{ c.direccion }}</td>
-          <td class="acciones">
-            <a
-              mat-flat-button
-              color="primary"
-              routerLink="/editarCliente/{{ c.clienteId }}"
-              class="btn-pill btn-accion"
-            >
-              Editar
-            </a>
-            <button
-              mat-flat-button
-              color="warn"
-              (click)="eliminar(c.clienteId || c.clienteId)"
-              class="btn-pill btn-accion"
-            >
-              Eliminar
-            </button>
-          </td>
-        </tr>
-      
+      <tr *ngFor="let c of clientes()">
+        <td>{{ c.clienteId || c.id }}</td>
+        <td>{{ c.nombre || c.nombres }}</td>
+        <td>{{ c.apellido || c.apellidos }}</td>
+        <td>{{ c.cedulaRuc || c.cedula }}</td>
+        <td>{{ c.correo || c.email }}</td>
+        <td>{{ c.telefono }}</td>
+        <td>{{ c.direccion }}</td>
+        <td class="acciones">
+          <a
+            mat-flat-button
+            color="primary"
+            [routerLink]="['/editarCliente', c.clienteId! || c.id!]"
+            class="btn-pill btn-accion"
+          >
+            Editar
+          </a>
+          <button
+            mat-flat-button
+            color="warn"
+            (click)="eliminar(c.clienteId || c.id)"
+            class="btn-pill btn-accion"
+          >
+            Eliminar
+          </button>
+        </td>
+      </tr>
     </tbody>
   </table>
 </section>

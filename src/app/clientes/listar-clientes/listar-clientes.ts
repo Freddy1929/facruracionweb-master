@@ -12,34 +12,22 @@ import { Cliente, ClientesService } from '../clientes';
 })
 export class ListarClientes implements OnInit {
   private servicioClientes = inject(ClientesService);
-  //public clientes: any;
-  clientes = signal(null);
+  clientes = signal<any[]>([]);
 
   ngOnInit(): void {
-    this.servicioClientes.getClientes().subscribe({
-      next: data => {
-        this.clientes.set(data);
-        console.log("1");
-                console.log(this.clientes)
-      },
-      error: (err) => console.error('Error al cargar la lista de clientes:', err)
-    });
+    this.cargarClientes();
   }
 
   cargarClientes(): void {
     this.servicioClientes.getClientes().subscribe({
-      next: data => {
-        console.log(data)
-        this.clientes = data;
-        console.log("1");
-                console.log(this.clientes)
-      },
+      next: (data) => this.clientes.set(data),
       error: (err) => console.error('Error al cargar la lista de clientes:', err)
     });
   }
 
   eliminar(id: number | undefined): void {
     if (!id) return;
+    
     if (confirm('¿Deseas eliminar este cliente?')) {
       this.servicioClientes.eliminarCliente(id).subscribe({
         next: () => this.cargarClientes(),

@@ -1,6 +1,12 @@
 <section class="productos">
   <h1>Listado de Productos</h1>
+  
   <a matButton="filled" routerLink="/crearProducto" class="crear-producto">Crear Producto</a>
+
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+  </mat-form-field>
 
   <div class="tabla-contenedor">
     <table mat-table [dataSource]="dataSource">
@@ -54,6 +60,16 @@
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="9">No hay datos que coincidan con el filtro "{{input.value}}"</td>
+      </tr>
     </table>
+
+    <!-- Etiqueta del paginador agregada justo debajo de la tabla -->
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons
+                   aria-label="Seleccionar página de productos">
+    </mat-paginator>
   </div>
 </section>

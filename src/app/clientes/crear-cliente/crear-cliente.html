@@ -1,38 +1,51 @@
-<section class="formulario-contenedor">
+<div class="container">
   <h2>Crear Cliente</h2>
 
-  <form [formGroup]="clienteForm" class="formulario-cliente">
-    <div class="campo">
-      <input type="text" formControlName="nombre" placeholder="Nombre" />
-    </div>
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    <mat-form-field appearance="fill" class="campo-form">
+      <input matInput formControlName="nombres" placeholder="Nombres">
+      <mat-error>{{ obtenerMensajeError('nombres') }}</mat-error>
+    </mat-form-field>
 
-    <div class="campo">
-      <input type="text" formControlName="apellido" placeholder="Apellido" />
-    </div>
+    <mat-form-field appearance="fill" class="campo-form">
+      <input matInput formControlName="apellidos" placeholder="Apellidos">
+      <mat-error>{{ obtenerMensajeError('apellidos') }}</mat-error>
+    </mat-form-field>
 
-    <div class="campo">
-      <input type="text" formControlName="cedulaRuc" placeholder="Cédula / RUC" />
-    </div>
+    <mat-form-field appearance="fill" class="campo-form">
+      <input matInput formControlName="cedula" placeholder="Cédula / RUC">
+      <mat-error>{{ obtenerMensajeError('cedula') }}</mat-error>
+    </mat-form-field>
 
-    <div class="campo">
-      <input type="email" formControlName="correo" placeholder="Correo Electrónico" />
-    </div>
+    <mat-form-field appearance="fill" class="campo-form">
+      <input matInput type="email" formControlName="email" placeholder="Correo Electrónico">
+      <mat-error>{{ obtenerMensajeError('email') }}</mat-error>
+    </mat-form-field>
 
-    <div class="campo">
-      <input type="text" formControlName="telefono" placeholder="Teléfono" />
-    </div>
+    <mat-form-field appearance="fill" class="campo-form">
+      <input matInput formControlName="telefono" placeholder="Teléfono">
+      <mat-error>{{ obtenerMensajeError('telefono') }}</mat-error>
+    </mat-form-field>
 
-    <div class="campo">
-      <input type="text" formControlName="direccion" placeholder="Dirección" />
-    </div>
+    <mat-form-field appearance="fill" class="campo-form">
+      <input matInput formControlName="direccion" placeholder="Dirección">
+      <mat-error>{{ obtenerMensajeError('direccion') }}</mat-error>
+    </mat-form-field>
 
-    <div class="acciones-form">
-      <button (click)="guardar()" mat-flat-button color="primary" class="btn-pill" [disabled]="clienteForm.invalid">
-        Guardar
+    <div class="acciones">
+      <button 
+        type="submit"
+        class="btn-aceptar" 
+        [disabled]="form.invalid">
+        Aceptar
       </button>
-      <a mat-stroked-button routerLink="/listarClientes" class="btn-pill">
+
+      <button 
+        type="button"
+        class="btn-cancelar" 
+        routerLink="/listarClientes">
         Cancelar
-      </a>
+      </button>
     </div>
   </form>
-</section>
+</div>

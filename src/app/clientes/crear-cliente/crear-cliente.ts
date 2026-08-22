@@ -1,60 +1,70 @@
 import { Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { ClientesService } from '../clientes';
 
 @Component({
   selector: 'app-crear-cliente',
-  imports: [RouterLink, MatButtonModule, ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    RouterLink,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule
+  ],
   templateUrl: './crear-cliente.html',
   styleUrl: './crear-cliente.css',
 })
 export class CrearCliente {
   private fb = inject(FormBuilder);
-  private servicioClientes = inject(ClientesService);
+  private clientesService = inject(ClientesService);
   private router = inject(Router);
 
-  clienteForm: FormGroup = this.fb.group({
-    nombre: ['', Validators.required],
-    apellido: ['', Validators.required],
-    cedulaRuc: ['', Validators.required],
-    correo: ['', [Validators.required, Validators.email]],
-    telefono: [''],
-    direccion: [''],
-    activo: [true]
+  form: FormGroup = this.fb.group({
+    nombres: ['', Validators.required],
+    apellidos: ['', Validators.required],
+    cedula: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    telefono: ['', Validators.required],
+    direccion: ['', Validators.required]
   });
 
+  obtenerMensajeError(campo: string): string {
+    const control = this.form.get(campo);
+    if (control?.hasError('required')) return 'Este campo es requerido';
+    if (control?.hasError('email')) return 'Correo no válido';
+    return '';
+  }
+
   guardar(): void {
-    //if (this.clienteForm.invalid) return;
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
 
-    const datos = this.clienteForm.value;
-
-  
-    const nuevoCliente: any = {
-      cedula: datos.cedulaRuc,
-      nombres: datos.nombre,
-      apellidos: datos.apellido,
-      telefono: datos.telefono || '',
-      direccion: datos.direccion || '',
-      email: datos.correo,
-      esConsumidorFinal: true
+    // Armamos la estructura asegurando tipos estrictos para la API
+    const nuevoCliente = {
+      nombres: String(this.form.value.nombres),
+      apellidos: String(this.form.value.apellidos),
+      cedula: String(this.form.value.cedula),
+      email: String(this.form.value.email),
+      telefono: String(this.form.value.telefono),
+      direccion: String(this.form.value.direccion),
+      esConsumidorFinal: false
     };
 
-    this.servicioClientes.crearCliente(nuevoCliente).subscribe({
-      next: (respuesta) => {
-        console.log(respuesta)
+    console.log('Enviando datos al servidor:', nuevoCliente);
+
+    this.clientesService.crearCliente(nuevoCliente).subscribe({
+      next: (res: any) => {
+        console.log('Respuesta exitosa del servidor:', res);
         this.router.navigate(['/listarClientes']);
       },
-      error: (err) => {
-        console.error('Detalle completo del error:', err);
-        
-        
-        if (err.status === 0) {
-          alert('Error de conexión (CORS). El servidor API no permite peticiones desde localhost.');
-        } else {
-          alert(`Error ${err.status}: ${JSON.stringify(err.error?.errors || err.message)}`);
-        }
+      error: (err: any) => {
+        console.error('Error detallado devuelto por la API:', err);
       }
     });
   }

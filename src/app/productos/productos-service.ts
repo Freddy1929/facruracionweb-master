@@ -3,12 +3,12 @@ import { inject, Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 
 export interface Producto {
-  productoId: number;
+  productoId?: number;
   activo: boolean;
   cantidad: number;
   codigo: string;
   descripcion: string;
-  fechaCreacion: string;
+  fechaCreacion?: string;
   nombre: string;
   precioUnitario: number;
 }
@@ -28,6 +28,10 @@ export class ProductosService {
     return this.http
       .get<RespuestaProductos | Producto[]>(this.urlbase)
       .pipe(map((respuesta) => Array.isArray(respuesta) ? respuesta : respuesta.value));
+  }
+
+  crearProducto(producto: Producto): Observable<any> {
+    return this.http.post<any>(this.urlbase, producto);
   }
 
   eliminarProducto(productoId: number): Observable<void> {
